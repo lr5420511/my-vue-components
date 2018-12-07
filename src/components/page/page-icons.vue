@@ -52,7 +52,8 @@ export default {
             { tip: ' 聆 听 ', icon: 'listen', click: router => {} },
             { tip: ' 查 询 ', icon: 'search', click: router => {} },
             { tip: ' 下一个 ', icon: 'next', click: router => {} },
-            { tip: ' 上一个 ', icon: 'previous', click: router => {} }
+            { tip: ' 上一个 ', icon: 'previous', click: router => {} },
+            { tip: ' 操  作 ', icon: 'operation', click: router => {} }
         ],
         rightIcons: [
             { tip: ' 固 定 ', icon: 'clip', click: router => {} },

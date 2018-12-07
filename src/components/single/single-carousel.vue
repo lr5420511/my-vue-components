@@ -214,6 +214,11 @@ export default {
         body.addEventListener('mousemove', this.move);
         this.toggle();
     },
+    destroyed: function() {
+        const body = document.body;
+        body.removeEventListener('mouseenter', this.move);
+        body.removeEventListener('mousemove', this.move);
+    },
     watch: {
         value: function() {
             const domain = this.$refs.domain;

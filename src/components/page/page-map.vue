@@ -24,13 +24,13 @@ export default {
             height: 600,
             value: 1,
             items: Array(11).fill(null).map((cur, i) => 
-                ({ id: i + 1, src: `/resource/${ i + 1 }.jpg` })
+                ({ id: i + 1, src: `/static/${ i + 1 }.jpg` })
             )
         }
     }),
     methods: {
         carouselEmitClick: function() {
-            alert(arguments);
+            alert(...arguments);
         }
     }
 };

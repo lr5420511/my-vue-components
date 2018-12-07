@@ -1,7 +1,7 @@
 <template>
     <lay-root :clipable="clipable" :top="top">
         <template slot="head">
-            <span class="root-logo">Alex-Space</span>
+            <span class="root-logo">ALEX-COMPONENTS</span>
             <img class="root-me" :src="me" />
             <sin-group class="root-menu" v-right
                        :items="menu.items"

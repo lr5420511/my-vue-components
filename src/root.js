@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import 'babel-polyfill';
 import Router from 'vue-router';
 import VueFloat from './plugins/vue-float';
 import VueOffset from './plugins/vue-offset';

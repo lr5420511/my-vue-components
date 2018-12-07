@@ -8,7 +8,7 @@ const prod = /^production$/i.test(process.env.NODE_ENV);
 
 const conf = module.exports = {
     entry: {
-        root: './src/root.js'
+        root: ['babel-polyfill', './src/root.js']
     },
     output: {
         path: join(__dirname, 'build'),
