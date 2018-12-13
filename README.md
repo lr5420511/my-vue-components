@@ -8,6 +8,7 @@
 +  通用text可输入组件
 +  通用group组件
 +  通用carousel组件
++  通用select组件
 +  通用dialog组件
 +  功能tab组件
 +  布局root根组件
