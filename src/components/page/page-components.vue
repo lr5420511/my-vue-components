@@ -1,23 +1,6 @@
 <template>
     <lay-series :count="layout.blockCount">
         <template slot="0">
-            <div class="page-components-content">
-                这些Vue组件是本人辛苦码出来的，如需使用到别处，请标明出处。仓库地址：
-                <a href="https://github.com/lr5420511/my-vue-components">
-                    Alex liao's VUE components.
-                </a>
-            </div>
-            <div class="page-components-content">
-                和我一起特训：
-                <a href="https://www.codewars.com/users/lr5420511">
-                    Alex liao's CODEWARS home.
-                </a>
-            </div>
-            <div class="page-components-content">
-                联系我：liaorui5420511@gmail.com
-            </div>
-        </template>
-        <template slot="1">
             <div class="page-components-head">独立组件-Carousel</div>
             <div class="page-components-content">
                 <sin-carousel v-model="carousel.value"
@@ -26,14 +9,14 @@
                 ></sin-carousel>
             </div>
         </template>
-        <template slot="2">
+        <template slot="1">
             <div class="page-components-head">独立组件-Button</div>
             <div class="page-components-content">
                 <sin-button class="page-components-component"
                 ></sin-button>
             </div> 
         </template>
-        <template slot="3">
+        <template slot="2">
             <div class="page-components-head">独立组件-Group</div>
             <div class="page-components-content">
                 <sin-group class="page-components-component"
@@ -45,7 +28,7 @@
                 ></sin-group>
             </div>
         </template>
-        <template slot="4">
+        <template slot="3">
             <div class="page-components-head">独立组件-Text</div>
             <div class="page-components-content">
                 <sin-text class="page-components-component"
@@ -55,7 +38,7 @@
                 ></sin-text>
             </div>
         </template>
-        <template slot="5">
+        <template slot="4">
             <div class="page-components-head">独立组件-Check</div>
             <div class="page-components-content">
                 <sin-check class="page-components-component"
@@ -63,12 +46,11 @@
                 ></sin-check>
             </div>
         </template>
-        <template slot="6">
+        <template slot="5">
             <div class="page-components-head">独立组件-Select</div>
             <div class="page-components-content">
                 <sin-select class="page-components-component"
                             v-model="selects.default.value"
-                            :items="selects.default.items"
                 ></sin-select>
 
                 <div class="page-components-comment">
@@ -91,6 +73,98 @@
                 ></sin-select>
             </div>
         </template>
+
+        <template slot="6">
+            <div class="page-components-head">通用组件-Tab</div>
+            <div class="page-components-content">
+                <com-tab class="page-components-component"
+                         v-model="tabs.default.value">
+                    <template slot="1">TAB DEFAULT CONTENT 1.</template>
+                    <template slot="2">TAB DEFAULT CONTENT 2.</template>
+                    <template slot="3">TAB DEFAULT CONTENT 3.</template>
+                </com-tab>
+
+                <div class="page-components-comment">
+                    子组件包含：single-group<br/><br/>
+                    以下演示常用的Tab组件在各个场景中的应用，组件会自适应在切换过程中自身内容的高度变化，还可以配置是否切换时应保留组件状态。<br/><br/>
+                    你甚至还可以把它当成一个幻灯片播放器，就像是第二个演示做的那样。<br/>
+                </div>
+
+                <com-tab class="page-components-component"
+                         :width="tabs.adjust.width"
+                         :vertical="tabs.adjust.vertical"
+                         v-model="tabs.adjust.value"
+                         :items="tabs.adjust.items">
+                    <template slot="1">
+                        <div style="height:100px;border:solid 1px #eee;text-align:center;line-height:100px;">A tab content. Height: 100px</div>
+                    </template>
+                    <template slot="2">
+                        <div style="height:300px;border:solid 1px #eee;text-align:center;line-height:300px;">B tab content. Height: 300px</div>
+                    </template>
+                    <template slot="3">
+                        <div style="height:500px;border:solid 1px #eee;text-align:center;line-height:500px;">C tab content. Height: 500px</div>
+                    </template>
+                </com-tab>
+
+                <com-tab class="page-components-component"
+                         :width="tabs.auto.width"
+                         v-model="tabs.auto.value"
+                         :items="tabs.auto.items"
+                         :duration="tabs.auto.duration"
+                         :keep="tabs.auto.keep">
+                    <template slot="1">
+                        <img style="width: 100%; height: 500px;" src="/static/1.jpg" />
+                    </template>
+                    <template slot="2">
+                        <img style="width: 100%; height: 500px;" src="/static/2.jpg" />
+                    </template>
+                    <template slot="3">
+                        <img style="width: 100%; height: 500px;" src="/static/3.jpg" />
+                    </template>
+                </com-tab>
+            </div>
+        </template>
+
+        <template slot="7">
+            <div class="page-components-head">独立组件-Dialog</div>
+            <div class="page-components-content">
+                <sin-button class="page-components-component"
+                            :text="dialogs.default.buttonText"
+                            @emitClick="openDialogClick"
+                ></sin-button>
+                <sin-dialog v-if="dialogs.default.display"
+                            @emitClose="dialogs.default.display=false"
+                ></sin-dialog>
+                <sin-dialog v-if="dialogs.notice.display"
+                            :closable="dialogs.notice.closable" 
+                            :movable="dialogs.notice.movable"
+                            :duration="dialogs.notice.duration" 
+                            :title="dialogs.notice.title"
+                            :type="dialogs.notice.type"
+                            :buttons="dialogs.notice.buttons"
+                            @emitClose="dialogs.notice.display=false"
+                            @emitClick="noticeClick">
+                    <div class="page-components-content" style="width:600px">
+                    这些Vue组件是本人辛苦码出来的，如需使用到别处，请标明出处。
+                    </div>
+                    <div class="page-components-content">
+                    全组件代码仓库地址：
+                        <a href="https://github.com/lr5420511/my-vue-components">
+                        Alex liao's VUE components.
+                        </a>
+                    </div>
+                    <div class="page-components-content">
+                    和我一起特训：
+                        <a href="https://www.codewars.com/users/lr5420511">
+                        Alex liao's CODEWARS home.
+                        </a>
+                    </div>
+                    <div class="page-components-content">
+                    联系我：liaorui5420511@gmail.com
+                    </div>
+                </sin-dialog>
+            </div>
+        </template>
     </lay-series>
 </template>
 
@@ -102,6 +176,8 @@ import SingleText from '../single/single-text.vue';
 import SingleGroup from '../single/single-group.vue';
 import SingleCarousel from '../single/single-carousel.vue';
 import SingleSelect from '../single/single-select.vue';
+import CommonTab from '../common/common-tab.vue';
+import SingleDialog from '../single/single-dialog.vue';
 
 export default {
     components: {
@@ -111,17 +187,19 @@ export default {
         'sin-text': SingleText,
         'sin-group': SingleGroup,
         'sin-carousel': SingleCarousel,
-        'sin-select': SingleSelect
+        'sin-select': SingleSelect,
+        'com-tab': CommonTab,
+        'sin-dialog': SingleDialog
     },
     data: () => ({
         layout: {
-            blockCount: 7
+            blockCount: 8
         },
         check: {
             checked: true
         },
         text: {
-            value: '',
+            value: null,
             isPassword: false
         },
         group: {
@@ -223,6 +301,47 @@ export default {
                 },
                 items: []
             }
+        },
+        tabs: {
+            default: { value: 0 },
+            adjust: {
+                width: 1000,
+                vertical: true,
+                value: 0,
+                items: [
+                    { id: 1, text: ' A ' },
+                    { id: 2, text: ' B '},
+                    { id: 3, text: ' C '}
+                ]
+            },
+            auto: {
+                width: 1000,
+                value: 0,
+                items: [
+                    { id: 1, text: ' 第 一 张 ' },
+                    { id: 2, text: ' 第 二 张 ' },
+                    { id: 3, text: ' 第 三 张 ' }
+                ],
+                keep: false,
+                duration: 3000
+            }
+        },
+        dialogs: {
+            default: {
+                buttonText: 'OPEN DEFAULT DIALOG',
+                display: false
+            },
+            notice: {
+                display: false,
+                closable: false,
+                movable: false,
+                type: 'slide',
+                duration: 0,
+                title: '作者有话说',
+                buttons: [
+                    { id: 1, text: 'I KNOW!' }
+                ]
+            }
         }
     }),
     methods: {
@@ -238,7 +357,16 @@ export default {
         },
         countrySelected: function(index, cur) {
             this.selects.selectCountry = cur && cur.text;
+        },
+        openDialogClick: function() {
+            this.dialogs.default.display = true;
+        },
+        noticeClick: function(btn, index, cur) {
+            cur.close(false);
         }
+    },
+    mounted: function() {
+        this.dialogs.notice.display = true;
     }
 };
 </script>
@@ -249,7 +377,7 @@ export default {
 .page-components-head {
     text-align: center;
     padding: 5px 0px;
-    border-bottom: solid 1px @g-first-color;
+    border-bottom: solid 1px @g-fifth-color;
 }
 
 .page-components-content {

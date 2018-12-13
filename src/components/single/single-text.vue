@@ -10,6 +10,7 @@
             <input class="single-text-in" 
                    :style="{ 'border-bottom-color': colorStyle, color: disableColor }"
                    :type="isPassword ? 'password' : 'text'"
+                   :readonly="readOnly"
                    :value="value"
                    @input="valueChange"
                    @keydown.enter.stop="enterDown"
@@ -50,6 +51,10 @@ export default {
             type: Boolean,
             default: false
         },
+        readOnly: {
+            type: Boolean,
+            default: false
+        },
         value: {
             type: String,
             default: null
@@ -68,12 +73,12 @@ export default {
         focus: false
     }),
     computed: {
-        colorStyle: cur =>
-            cur.enter || cur.focus ? cur.enableColor : (
-                cur.value.length ? cur.enableColor : cur.disableColor
+        colorStyle: cur => cur.enter || cur.focus ? 
+            cur.enableColor : (cur.value && cur.value.length ? 
+                cur.enableColor : cur.disableColor
             ),
-        titleTop: cur =>
-            cur.focus || cur.value.length ? '-70%' : '0%'
+        titleTop: cur => cur.focus || (cur.value && cur.value.length) ? 
+            '-70%' : '0%'
     }
 };
 </script>

@@ -229,7 +229,7 @@ export default {
     list-style: none;
     margin: 0px;
     padding: 0px;
-    box-shadow: 0 0 10px @g-fourth-color;
+    box-shadow: 0 0 7px 1px @g-fourth-color;
     z-index: 900;
     overflow: hidden;
 }

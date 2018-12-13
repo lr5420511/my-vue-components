@@ -14,6 +14,6 @@ const veloc = promiseify([
 veloc.naiver = velocity;
 
 const disableCol = '#555555';
-const enableCol = '#6666FF';
+const enableCol = '#6666ff';
 
 export { disableCol, enableCol, veloc };
