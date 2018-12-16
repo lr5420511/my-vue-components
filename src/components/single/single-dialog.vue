@@ -322,6 +322,7 @@ export default {
     float: left;
     min-width: 300px;
     padding: 10px;
+    overflow: hidden;
 }
 
 .single-dialog-line {

@@ -134,7 +134,6 @@ export default {
 }
 
 .common-tab-content {
-    position: relative;
     float: left;
     padding: 5px;
 }
