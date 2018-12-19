@@ -58,11 +58,31 @@ export default {
         value: {
             type: String,
             default: null
+        },
+        regular: {
+            type: RegExp,
+            default: null
+        },
+        invaildColor: {
+            type: String,
+            default: '#ff0000',
+            validator: val => re.test(val)
+        },
+        vaild: {
+            type: Boolean,
+            default: true
         }
     },
     methods: {
         valueChange: function(ev) {
-            this.$emit('input', ev.target.value, this);
+            const curValue = ev.target.value;
+            if(this.regular) {
+                const temp = this.regular.test(curValue);
+                temp !== this.vaild && (
+                    this.$emit('emitVaildChanged', temp, this)
+                );
+            }
+            this.$emit('input', curValue, this);
         },
         enterDown: function() {
             this.$emit('emitEnterDown', this, ...arguments);
@@ -70,15 +90,22 @@ export default {
     },
     data: () => ({
         enter: false,
-        focus: false
+        focus: false,
+        height: 0
     }),
     computed: {
-        colorStyle: cur => cur.enter || cur.focus ? 
-            cur.enableColor : (cur.value && cur.value.length ? 
-                cur.enableColor : cur.disableColor
-            ),
+        colorStyle: cur => {
+            const invaild = cur.regular && !cur.vaild,
+                enable = cur.enter || cur.focus || (cur.value && cur.value.length);
+            return enable ? (
+                invaild ? cur.invaildColor : cur.enableColor
+            ) : cur.disableColor;
+        },
         titleTop: cur => cur.focus || (cur.value && cur.value.length) ? 
-            '-70%' : '0%'
+            10 - cur.height : 0
+    },
+    mounted: function() {
+        this.height = parseFloat(getComputedStyle(this.$el).height);
     }
 };
 </script>
@@ -113,5 +140,7 @@ export default {
     border-bottom-width: 2px;
     background-color: transparent;
     outline: none;
+    font-family: @g-font-family;
+    font-size: @g-font-size;
 }
 </style>

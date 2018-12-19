@@ -10,6 +10,7 @@
 +  通用carousel组件
 +  通用select组件
 +  通用dialog组件
++  通用textarea组件
 +  功能tab组件
 +  布局root根组件
 +  布局flex组件

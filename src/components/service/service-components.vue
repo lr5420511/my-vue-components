@@ -25,13 +25,13 @@
                          v-model="tabs.adjust.value"
                          :items="tabs.adjust.items">
                     <template slot="1">
-                        <div style="height:100px;border:solid 1px #eee;text-align:center;line-height:100px;">A tab content. Height: 100px</div>
+                        <div style="height:500px;border:solid 1px #eee;text-align:center;line-height:500px;">A tab content. Height: 500px</div>
                     </template>
                     <template slot="2">
                         <div style="height:300px;border:solid 1px #eee;text-align:center;line-height:300px;">B tab content. Height: 300px</div>
                     </template>
                     <template slot="3">
-                        <div style="height:500px;border:solid 1px #eee;text-align:center;line-height:500px;">C tab content. Height: 500px</div>
+                        <div style="height:100px;border:solid 1px #eee;text-align:center;line-height:100px;">C tab content. Height: 100px</div>
                     </template>
                 </com-tab>
                 <br/><br/>
@@ -415,15 +415,54 @@
                 ></sin-text>
             </div>
             <div class="service-components-block">
-                下面我将演示真实场景中常用的一个实例，当输入邮箱格式非法时使文本框变为红色，并设置状态valid为false。而不是提交信息时再去验证其合法性。<br/><br/>
-                <sin-text :enable-color="texts.example4.enableColor"
-                          :display-title="texts.example4.title"
+                另外Text组件也提供了合法性验证功能。下面我将演示真实场景中常用的一个实例，当输入邮箱格式非法时使文本框变为红色，并设置状态vaild为false。而不是提交信息时再去验证其合法性。<br/><br/>
+                <sin-text :display-title="texts.example4.title"
+                          :regular="texts.example4.regular"
+                          :vaild="texts.example4.vaild"
                           v-model="texts.example4.value"
-                          @input="textExample4Changed"
+                          @emitVaildChanged="textExample4Changed"
                 ></sin-text>
             </div>
             <div class="service-components-block">
                 当然你可以根据需要任意组合特性，只要你喜欢。
+            </div>
+        </template>
+        <template slot="single-textarea">
+            <div class="service-components-block">
+                single-textarea组件原型，源代码仓库地址：
+                <a href="https://github.com/lr5420511/my-vue-components/blob/master/src/components/single/single-textarea.vue">
+                VUE-COMPONENTS-TEXTAREA
+                </a><br/><br/>
+                <sin-textarea v-model="textareas.default.value"></sin-textarea>
+            </div>
+            <div class="service-components-block">
+                -----该组件是Text组件的多行版本，去除了无用的密码功能，添加了对高度和宽度的配置，以下演示常用的Textarea组件在各个场景中的应用-----
+            </div>
+            <div class="service-components-block">
+                你可能需要一个宽度、高度和标题可定制，并且可以响应键盘enter键的多行文本框。提交的输入值是<b>{{ textareas.example1.currentValue }}</b><br/><br/>
+                <sin-textarea :width="textareas.example1.width"
+                              :height="textareas.example1.height"
+                              :display-title="textareas.example1.title"
+                              v-model="textareas.example1.value"
+                              @emitEnterDown="textareaExample1EnterDown"
+                ></sin-textarea>
+            </div>
+            <div class="service-components-block">
+                你可能需要一个仅用于展示文本的只读文本框，并且他的颜色可定制。<br/><br/>
+                <sin-textarea :disable-color="textareas.example2.disableColor"
+                              :enable-color="textareas.example2.enableColor"
+                              :read-only="textareas.example2.readOnly"
+                              :value="textareas.example2.value"
+                ></sin-textarea>
+            </div>
+            <div class="service-components-block">
+                同样的Textarea组件也有验证系统，下面我将演示一个IPv4地址验证功能。当地址格式不正确时改变文本框颜色，并且赋值vaild状态为false。<br/><br/>
+                <sin-textarea :display-title="textareas.example3.title"
+                              :regular="textareas.example3.regular"
+                              :vaild="textareas.example3.vaild"
+                              v-model="textareas.example3.value"
+                              @emitVaildChanged="textareaExample3Changed"
+                ></sin-textarea>
             </div>
         </template>
     </com-tab>
@@ -439,6 +478,7 @@ import SingleGroup from '../single/single-group.vue';
 import SingleIcon from '../single/single-icon.vue';
 import SingleSelect from '../single/single-select.vue';
 import SingleText from '../single/single-text.vue';
+import SingleTextarea from '../single/single-textarea.vue';
 
 export default {
     components: {
@@ -450,7 +490,8 @@ export default {
         'sin-group': SingleGroup,
         'sin-icon': SingleIcon,
         'sin-select': SingleSelect,
-        'sin-text': SingleText
+        'sin-text': SingleText,
+        'sin-textarea': SingleTextarea
     },
     props: {
         width: {
@@ -506,8 +547,13 @@ export default {
             this.selects.example3.selectedCountry = cur && cur.text;
         },
         textExample4Changed: function(val) {
-            const vaild = this.texts.example4.vaild = /^[^@]+@[\da-z]+(\.[^\.]+)+$/i.test(val);
-            this.texts.example4.enableColor = vaild || !val.length ? '#6666ff' : '#ff0000';
+            this.texts.example4.vaild = val;
+        },
+        textareaExample1EnterDown: function() {
+            this.textareas.example1.currentValue = this.textareas.example1.value;
+        },
+        textareaExample3Changed: function(val) {
+            this.textareas.example3.vaild = val;
         }
     },
     data: () => ({
@@ -523,7 +569,8 @@ export default {
             { id: 'single-group', text: 'Group' },
             { id: 'single-icon', text: 'Icon' },
             { id: 'single-select', text: 'Select' },
-            { id: 'single-text', text: 'Text' }
+            { id: 'single-text', text: 'Text' },
+            { id: 'single-textarea', text: 'Textarea' }
         ],
         tabs: {
             default: { value: 0 },
@@ -813,8 +860,30 @@ export default {
             example4: {
                 value: null,
                 title: 'YOUR EMAIL:',
-                enableColor: '#6666ff',
-                vaild: false
+                vaild: false,
+                regular: /^[^@]+@[\da-z]+(\.[\da-z]+)+$/i
+            }
+        },
+        textareas: {
+            default: { value: null },
+            example1: {
+                width: 700,
+                height: 150,
+                title: 'This is textarea example1 title:',
+                value: null,
+                currentValue: null
+            },
+            example2: {
+                enableColor: '#ff0099',
+                disableColor: '#e0e0e0',
+                readOnly: true,
+                value: 'This is a readonly text.'
+            },
+            example3: {
+                title: 'Input IPv4:',
+                value: null,
+                vaild: false,
+                regular: /^(\d|[1-9]\d|1\d{2}|2([0-4]\d|5[0-5]))(\.(\d|[1-9]\d|1\d{2}|2([0-4]\d|5[0-5]))){3}$/
             }
         }
     }),
