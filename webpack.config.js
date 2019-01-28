@@ -19,30 +19,30 @@ const conf = module.exports = {
     devServer: { historyApiFallback: { index: '/index.htm' } },
     module: {
         rules: [{
-                test: /\.js$/i,
-                loader: ['babel-loader'],
-                exclude: '/node_modules/'
-            },
-            {
-                test: /\.vue$/i,
-                loader: ['vue-loader']
-            },
-            {
-                test: /\.(le|c)ss$/i,
-                loader: ['vue-style-loader', 'css-loader', 'less-loader']
-            },
-            {
-                test: /\.(png|svg|ico|jpg|jpeg|gif)$/i,
-                loader: [
-                    {  
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: prod ? 'resource/' : '',
-                            name: '[name][hash].[ext]'
-                        }
+            test: /\.js$/i,
+            loader: ['babel-loader'],
+            exclude: '/node_modules/'
+        },
+        {
+            test: /\.vue$/i,
+            loader: ['vue-loader']
+        },
+        {
+            test: /\.(le|c)ss$/i,
+            loader: ['vue-style-loader', 'css-loader', 'less-loader']
+        },
+        {
+            test: /\.(png|svg|ico|jpg|jpeg|gif)$/i,
+            loader: [
+                {
+                    loader: 'file-loader',
+                    options: {
+                        outputPath: prod ? 'resource/' : '',
+                        name: '[name][hash].[ext]'
                     }
-                ]
-            }
+                }
+            ]
+        }
         ]
     },
     plugins: [new VueLoaderPlugin()]

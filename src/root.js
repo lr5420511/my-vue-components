@@ -5,20 +5,15 @@ import VueFloat from './plugins/vue-float';
 import VueOffset from './plugins/vue-offset';
 import routes from './routes';
 import Root from './root.vue';
-
-import VueAnimate from './plugins/vue-animate';
+import VueAnimate from 'vue-animate-plugin';
 
 Vue.use(Router);
 Vue.use(VueFloat);
 Vue.use(VueOffset);
-
 Vue.use(VueAnimate);
 
 new Vue({
     el: '#root',
     render: h => h(Root),
-    router: new Router({
-        mode: 'history',
-        routes
-    })
+    router: new Router({ mode: 'hash', routes })
 });
